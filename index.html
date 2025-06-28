@@ -142,16 +142,10 @@
         </div>
 
         <div class="settings-section">
-          <h4>Cloud Sync (Optional)</h4>
-          <p>Sync your data across devices using GitHub Gist:</p>
-          <div class="cloud-sync">
-            <input type="text" id="githubToken" placeholder="GitHub Personal Access Token (optional)">
-            <button id="cloudSaveBtn">Save to Cloud</button>
-            <button id="cloudLoadBtn">Load from Cloud</button>
-          </div>
+          <h4>Database Status</h4>
+          <div id="firebaseStatus" class="firebase-status"></div>
           <p class="help-text">
-            <small>Create a token at <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings</a> with 'gist' permission. 
-            This allows syncing between devices and browsers.</small>
+            <small>Tour Manager automatically syncs all teams to a shared database for real-time multiplayer.</small>
           </p>
         </div>
 
@@ -199,6 +193,11 @@
     © Tour Manager 2025 - Fantasy Tour de France
   </footer>
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <!-- Firebase Configuration -->
+  <script src="firebase-config.js"></script>
   <script src="tourmanager.js"></script>
 </body>
 </html> 

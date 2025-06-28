@@ -6,6 +6,14 @@ class TourManager {
     this.maxRiders = 8;
     this.riders = [];
     this.teams = {};
+    this.database = null;
+    this.isFirebaseConnected = false;
+    
+    // Firebase Configuration - Replace with your actual Firebase config
+    this.firebaseConfig = {
+      apiKey: "AIzaSyCN996WefUsDhlekUdJ6b3a_xmV_OX6AZk", // Replace with your Firebase API key
+      databaseURL: "https://tourmanager-8f5d5.firebaseapp.com" // Replace with your Firebase database URL
+    };
     
     // Point scoring system from the CSV
     this.pointScheme = {
@@ -30,6 +38,7 @@ class TourManager {
     this.loadRiderDataFromCSV();
     this.loadFromStorage();
     this.loadTeamFromUrl(); // Check for shared teams in URL
+    this.initializeFirebase(); // Automatically connect to Firebase
     this.updateUI();
   }
 
@@ -350,7 +359,7 @@ class TourManager {
     document.getElementById('tourInterface').style.display = 'block';
 
     this.updateUI();
-    this.saveToStorage();
+    this.saveTeamToFirebase(managerId);
   }
 
   changeManager() {
@@ -591,7 +600,7 @@ class TourManager {
 
     this.updateUI();
     this.renderRiders();
-    this.saveToStorage();
+    this.saveTeamToFirebase(this.currentManager);
     this.showMessage('Rider added to your team!', 'success');
   }
 
@@ -609,7 +618,7 @@ class TourManager {
     this.updateUI();
     this.renderRiders();
     this.renderMyTeam();
-    this.saveToStorage();
+    this.saveTeamToFirebase(this.currentManager);
     this.showMessage('Rider removed from your team!', 'warning');
   }
 
@@ -769,7 +778,7 @@ class TourManager {
     }
 
     team.lastUpdated = new Date().toISOString();
-    this.saveToStorage();
+    this.saveTeamToFirebase(this.currentManager);
     this.showMessage('Team saved successfully!', 'success');
   }
 
@@ -807,7 +816,12 @@ class TourManager {
             this.teams = data.teams;
           }
           
-          this.saveToStorage();
+          // Save all teams to Firebase
+          if (this.isFirebaseConnected && this.database) {
+            this.database.ref('teams').set(this.teams).catch(() => this.saveToStorage());
+          } else {
+            this.saveToStorage();
+          }
           this.updateUI();
           this.renderLeaderboard();
           this.showMessage('Data imported successfully!', 'success');
@@ -851,7 +865,13 @@ class TourManager {
       this.renderRiders();
       this.renderMyTeam();
       this.renderLeaderboard();
-      this.saveToStorage();
+      
+      // Save all updated teams to Firebase
+      if (this.isFirebaseConnected && this.database) {
+        this.database.ref('teams').set(this.teams).catch(() => this.saveToStorage());
+      } else {
+        this.saveToStorage();
+      }
       
       this.showMessage('Rider data refreshed successfully!', 'success');
     } catch (error) {
@@ -915,6 +935,7 @@ class TourManager {
         const sharedManagerId = `${shareData.manager}_shared_${Date.now()}`;
         
         this.teams[sharedManagerId] = {
+          name: shareData.manager,
           riders: shareData.riders.map((rider, index) => ({
             ...rider,
             id: index + 1000, // Use high IDs to avoid conflicts
@@ -927,7 +948,8 @@ class TourManager {
           lastUpdated: shareData.timestamp
         };
 
-        this.saveToStorage();
+        // Save the shared team to Firebase
+        this.saveTeamToFirebase(sharedManagerId);
         this.showMessage(`Loaded shared team from ${shareData.manager}!`, 'success');
         
         // Clear URL parameter
@@ -990,6 +1012,101 @@ class TourManager {
       }
     }, 5000);
   }
+
+  initializeFirebase() {
+    // Check if Firebase config is properly set
+    if (this.firebaseConfig.apiKey === "YOUR_FIREBASE_API_KEY" || 
+        this.firebaseConfig.databaseURL === "YOUR_FIREBASE_DATABASE_URL") {
+      this.updateFirebaseStatus('disconnected', '⚠️ Firebase not configured - using local storage');
+      console.warn('Firebase config not set up. Please update firebaseConfig in tourmanager.js');
+      return;
+    }
+
+    try {
+      this.updateFirebaseStatus('connecting', 'Connecting to shared database...');
+
+      // Initialize Firebase
+      if (firebase.apps.length === 0) {
+        firebase.initializeApp(this.firebaseConfig);
+      }
+
+      this.database = firebase.database();
+      this.isFirebaseConnected = true;
+
+      // Set up real-time listeners
+      this.setupFirebaseListeners();
+
+      // Migrate local data to Firebase if it exists
+      this.migrateLocalDataToFirebase();
+
+      this.updateFirebaseStatus('connected', '✅ Connected to shared database - live multiplayer active');
+      console.log('Firebase connected successfully for multiplayer sync');
+    } catch (error) {
+      console.error('Firebase connection error:', error);
+      this.updateFirebaseStatus('disconnected', '❌ Database connection failed - using local storage');
+      this.isFirebaseConnected = false;
+      this.database = null;
+    }
+  }
+
+  
+
+  async setupFirebaseListeners() {
+    if (!this.database) return;
+
+    // Listen for team changes
+    this.database.ref('teams').on('value', (snapshot) => {
+      const firebaseTeams = snapshot.val() || {};
+      
+      // Update local teams data
+      this.teams = firebaseTeams;
+      
+      // Update UI if we're viewing one of the updated teams
+      if (this.currentManager && this.teams[this.currentManager]) {
+        this.updateUI();
+        this.renderMyTeam();
+        this.renderLeaderboard();
+      }
+    });
+
+    this.showMessage('Real-time sync enabled - you\'ll see live updates!', 'info');
+  }
+
+  async migrateLocalDataToFirebase() {
+    if (!this.database) return;
+
+    // Check if we have local data to migrate
+    const localData = localStorage.getItem('tourManagerData');
+    if (localData && Object.keys(this.teams).length > 0) {
+      try {
+        await this.database.ref('teams').update(this.teams);
+        this.showMessage('Local data migrated to shared database', 'info');
+      } catch (error) {
+        console.error('Migration error:', error);
+      }
+    }
+  }
+
+  async saveTeamToFirebase(managerId) {
+    if (!this.database || !this.isFirebaseConnected) {
+      // Fallback to local storage
+      this.saveToStorage();
+      return;
+    }
+
+    try {
+      const team = this.teams[managerId];
+      await this.database.ref(`teams/${managerId}`).set(team);
+    } catch (error) {
+      console.error('Firebase save error:', error);
+      // Fallback to local storage
+      this.saveToStorage();
+    }
+  }
+
+
+
+
 
   // Debug function - can be called from console: tourManager.debugCSVLoading()
   async debugCSVLoading() {
