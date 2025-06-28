@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tour Manager - Fantasy Tour de France 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Tour Manager - Fantasy Tour de France 2025 - Select your dream team of 8 riders within budget and compete with friends!" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tourmanager.css">
+</head>
+<body>
+
+  <main class="tour-main">
+    <!-- User Selection and Setup -->
+    <div class="user-setup" id="userSetup">
+      <h1>Welcome to Tour Manager</h1>
+      <p>Select your manager name to continue:</p>
+      <div class="manager-buttons">
+        <button class="manager-btn" data-manager="manager1">Lars</button>
+        <button class="manager-btn" data-manager="manager2">Ola</button>
+        <button class="manager-btn" data-manager="manager3">Anders</button>
+        <button class="manager-btn" data-manager="manager4">Torkil</button>
+      </div>
+      <div class="custom-manager">
+        <input type="text" id="customManagerName" placeholder="Or enter custom name">
+        <button id="customManagerBtn">Use Custom Name</button>
+      </div>
+    </div>
+
+    <!-- Main Tour Manager Interface -->
+    <div class="tour-interface" id="tourInterface" style="display: none;">
+      <!-- Header with budget and team info -->
+      <div class="manager-header">
+        <div class="manager-info">
+          <h2 id="currentManager">Manager Name</h2>
+          <div class="budget-info">
+            <span class="budget-label">Budget:</span>
+            <span id="currentBudget">4000</span>
+            <span class="budget-unit">/ 4000 points</span>
+          </div>
+          <div class="team-info">
+            <span class="team-label">Team:</span>
+            <span id="teamCount">0</span>
+            <span class="team-unit">/ 8 riders</span>
+          </div>
+        </div>
+        <div class="manager-actions">
+          <button id="saveTeamBtn" class="save-btn">Save Team</button>
+          <button id="shareTeamBtn" class="share-btn">Share Team</button>
+          <button id="viewLeaderboardBtn" class="leaderboard-btn">View Leaderboard</button>
+          <button id="changeManagerBtn" class="change-manager-btn">Change Manager</button>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button class="tab-btn active" data-tab="team-selection">Team Selection</button>
+        <button class="tab-btn" data-tab="my-team">My Team</button>
+        <button class="tab-btn" data-tab="leaderboard">Leaderboard</button>
+        <button class="tab-btn" data-tab="settings">Settings</button>
+      </div>
+
+      <!-- Team Selection Tab -->
+      <div class="tab-content active" id="team-selection">
+        <div class="riders-header">
+          <h3>Available Riders</h3>
+          <div class="filters">
+            <input type="text" id="riderSearch" placeholder="Search riders...">
+            <select id="teamFilter">
+              <option value="">All Teams</option>
+            </select>
+            <select id="sortBy">
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name">Name A-Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="riders-grid" id="ridersGrid">
+          <!-- Riders will be populated here -->
+        </div>
+      </div>
+
+      <!-- My Team Tab -->
+      <div class="tab-content" id="my-team">
+        <h3>My Team</h3>
+        <div class="team-summary">
+          <div class="team-stats">
+            <div class="stat">
+              <span class="stat-label">Total Cost:</span>
+              <span class="stat-value" id="teamCost">0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Remaining Budget:</span>
+              <span class="stat-value" id="remainingBudget">4000</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Current Score:</span>
+              <span class="stat-value" id="currentScore">0</span>
+            </div>
+          </div>
+        </div>
+        <div class="selected-riders" id="selectedRiders">
+          <!-- Selected riders will be shown here -->
+        </div>
+      </div>
+
+      <!-- Leaderboard Tab -->
+      <div class="tab-content" id="leaderboard">
+        <h3>Leaderboard</h3>
+        <div class="leaderboard-table">
+          <table id="leaderboardTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Manager</th>
+                <th>Score</th>
+                <th>Team Value</th>
+                <th>Last Updated</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+              <!-- Leaderboard data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="tab-content" id="settings">
+        <h3>Settings & Data Management</h3>
+        
+        <div class="settings-section">
+          <h4>Data Management</h4>
+          <p>Refresh data from CSV files or manage your teams:</p>
+          <button id="refreshDataBtn">Refresh Rider Data</button>
+          <button id="exportDataBtn">Export Team Data</button>
+          <button id="importDataBtn">Import Team Data</button>
+          <button id="resetDataBtn" class="danger-btn">Reset All Data</button>
+        </div>
+
+        <div class="settings-section">
+          <h4>Cloud Sync (Optional)</h4>
+          <p>Sync your data across devices using GitHub Gist:</p>
+          <div class="cloud-sync">
+            <input type="text" id="githubToken" placeholder="GitHub Personal Access Token (optional)">
+            <button id="cloudSaveBtn">Save to Cloud</button>
+            <button id="cloudLoadBtn">Load from Cloud</button>
+          </div>
+          <p class="help-text">
+            <small>Create a token at <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings</a> with 'gist' permission. 
+            This allows syncing between devices and browsers.</small>
+          </p>
+        </div>
+
+        <div class="settings-section">
+          <h4>Game Rules - Tour de France 2025</h4>
+          <ul>
+            <li><strong>Budget:</strong> 4000 CQ points total</li>
+            <li><strong>Team Size:</strong> Select exactly 8 riders</li>
+            <li><strong>Rider Status:</strong> ✓ = Confirmed, ? = Unconfirmed (subject to team changes)</li>
+            <li><strong>Stage Points:</strong> 1st=80pts, 2nd=50pts, 3rd=35pts, 4th=25pts, 5th=15pts, 6th=10pts, 7th=5pts, 8th=3pts, 9th=2pts, 10th=1pt</li>
+            <li><strong>General Classification:</strong> 1st=600pts, 2nd=450pts, 3rd=380pts... down to 50th=21pts</li>
+            <li><strong>Race Leader Bonus:</strong> 20 points per day wearing Yellow Jersey</li>
+          </ul>
+        </div>
+        
+        <div class="settings-section">
+          <h4>Data Source & Updates</h4>
+          <p>Rider data and prices loaded from Tour de France 2025 team selector CSV files.</p>
+          <p>Confirmed riders (✓) are officially announced by their teams.</p>
+          <p>Unconfirmed riders (?) may still be subject to team selection changes.</p>
+          <br>
+          <p><strong>How to update scores during the race:</strong></p>
+          <ol>
+            <li>Create a file called <code>scoring-updates.csv</code> in the <code>TdF 2025 team selector/</code> folder</li>
+            <li>Format: <code>Rider Name;Stage Points;GC Points;Leader Bonus</code></li>
+            <li>Example: <code>POGACAR Tadej;80;600;20</code></li>
+            <li>Click "Refresh Rider Data" to load the updates</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for rider details -->
+  <div class="modal" id="riderModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="riderDetails">
+        <!-- Rider details will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © Tour Manager 2025 - Fantasy Tour de France
+  </footer>
+
+  <script src="tourmanager.js"></script>
+</body>
+</html> 

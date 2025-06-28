@@ -1,0 +1,712 @@
+/* Tour Manager Specific Styles */
+
+.tour-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Confirmed/Unconfirmed Rider Status */
+.confirmed-badge, .unconfirmed-badge {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.confirmed-badge {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #4caf50;
+}
+
+.unconfirmed-badge {
+  background: #fff3e0;
+  color: #f57c00;
+  border: 1px solid #ff9800;
+}
+
+.rider-card.confirmed {
+  border-left: 4px solid #4caf50;
+}
+
+.rider-card.unconfirmed {
+  border-left: 4px solid #ff9800;
+}
+
+.rider-card.confirmed:hover {
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.rider-card.unconfirmed:hover {
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+}
+
+/* User Setup Section */
+.user-setup {
+  text-align: center;
+  padding: 3rem 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.user-setup h1 {
+  color: #111;
+  font-size: 2.5em;
+  margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
+}
+
+.user-setup p {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.manager-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.manager-btn {
+  padding: 1rem 2rem;
+  background: #fffef9;
+  border: 2px solid #bfa77a;
+  border-radius: 8px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1em;
+  color: #111;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.manager-btn:hover {
+  background: #bfa77a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(191, 167, 122, 0.3);
+}
+
+.custom-manager {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.custom-manager input {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e5e1d8;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1em;
+  min-width: 200px;
+}
+
+.custom-manager input:focus {
+  outline: none;
+  border-color: #bfa77a;
+  box-shadow: 0 0 0 3px rgba(191, 167, 122, 0.1);
+}
+
+#customManagerBtn {
+  padding: 0.8rem 1.5rem;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#customManagerBtn:hover {
+  background: #333;
+}
+
+/* Manager Header */
+.manager-header {
+  background: #fffef9;
+  border: 2px solid #e5e1d8;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.manager-info h2 {
+  color: #111;
+  font-size: 1.8em;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Georgia', serif;
+}
+
+.budget-info, .team-info {
+  display: inline-block;
+  margin-right: 2rem;
+  font-size: 1.1em;
+}
+
+.budget-label, .team-label {
+  color: #666;
+  font-weight: 600;
+}
+
+#currentBudget, #teamCount {
+  color: #bfa77a;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.budget-unit, .team-unit {
+  color: #999;
+}
+
+.manager-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.manager-actions button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.save-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #45a049;
+}
+
+.share-btn {
+  background: #FF9800;
+  color: white;
+}
+
+.share-btn:hover {
+  background: #F57C00;
+}
+
+.leaderboard-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.leaderboard-btn:hover {
+  background: #1976D2;
+}
+
+.change-manager-btn {
+  background: #f44336;
+  color: white;
+}
+
+.change-manager-btn:hover {
+  background: #d32f2f;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  background: #fffef9;
+  border: 2px solid #e5e1d8;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  border-right: 1px solid #e5e1d8;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+  font-weight: 600;
+}
+
+.tab-btn:last-child {
+  border-right: none;
+}
+
+.tab-btn:hover {
+  background: #f5f5f5;
+  color: #111;
+}
+
+.tab-btn.active {
+  background: #bfa77a;
+  color: white;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  background: white;
+  border: 2px solid #e5e1d8;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 2rem;
+  min-height: 600px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab-content h3 {
+  color: #111;
+  font-size: 1.8em;
+  margin-bottom: 1.5rem;
+  font-family: 'Georgia', serif;
+}
+
+/* Riders Section */
+.riders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filters input, .filters select {
+  padding: 0.7rem;
+  border: 2px solid #e5e1d8;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1em;
+}
+
+.filters input:focus, .filters select:focus {
+  outline: none;
+  border-color: #bfa77a;
+  box-shadow: 0 0 0 3px rgba(191, 167, 122, 0.1);
+}
+
+.riders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.rider-card {
+  background: #fffef9;
+  border: 2px solid #e5e1d8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.rider-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #bfa77a;
+}
+
+.rider-card.selected {
+  border-color: #4CAF50;
+  background: #f8fff8;
+}
+
+.rider-name {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.5rem;
+  font-family: 'Georgia', serif;
+}
+
+.rider-team {
+  color: #666;
+  font-size: 1em;
+  margin-bottom: 0.5rem;
+}
+
+.rider-price {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #bfa77a;
+  margin-bottom: 1rem;
+}
+
+.rider-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.rider-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.select-btn, .remove-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.select-btn {
+  background: #4CAF50;
+  color: white;
+  flex: 1;
+}
+
+.select-btn:hover {
+  background: #45a049;
+}
+
+.select-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  background: #f44336;
+  color: white;
+  flex: 1;
+}
+
+.remove-btn:hover {
+  background: #d32f2f;
+}
+
+/* Team Summary */
+.team-summary {
+  background: #fffef9;
+  border: 2px solid #e5e1d8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.team-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e5e1d8;
+}
+
+.stat-label {
+  display: block;
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #bfa77a;
+  font-family: 'Georgia', serif;
+}
+
+.selected-riders {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Leaderboard */
+.leaderboard-table {
+  overflow-x: auto;
+}
+
+#leaderboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#leaderboardTable th,
+#leaderboardTable td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e1d8;
+}
+
+#leaderboardTable th {
+  background: #fffef9;
+  font-weight: 600;
+  color: #111;
+  font-family: 'Georgia', serif;
+}
+
+#leaderboardTable tr:hover {
+  background: #f9f9f9;
+}
+
+.rank-1 {
+  background: #fff9c4 !important;
+}
+
+.rank-2 {
+  background: #f5f5f5 !important;
+}
+
+.rank-3 {
+  background: #fff5e6 !important;
+}
+
+/* Settings */
+.settings-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fffef9;
+  border: 2px solid #e5e1d8;
+  border-radius: 8px;
+}
+
+.settings-section h4 {
+  color: #111;
+  font-size: 1.3em;
+  margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
+}
+
+
+
+.settings-section button {
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+#exportDataBtn, #importDataBtn {
+  background: #4CAF50;
+  color: white;
+}
+
+#exportDataBtn:hover, #importDataBtn:hover {
+  background: #45a049;
+}
+
+.danger-btn {
+  background: #f44336 !important;
+  color: white !important;
+}
+
+.danger-btn:hover {
+  background: #d32f2f !important;
+}
+
+.settings-section ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+  line-height: 1.6;
+}
+
+.settings-section li {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.close:hover {
+  color: #000;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .manager-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .manager-info {
+    margin-bottom: 1rem;
+  }
+
+  .budget-info, .team-info {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .riders-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters {
+    justify-content: center;
+  }
+
+  .tab-navigation {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    flex: 1 1 50%;
+  }
+
+  .riders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-riders {
+    grid-template-columns: 1fr;
+  }
+
+  .team-stats {
+    grid-template-columns: 1fr;
+  }
+
+
+
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+  }
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #bfa77a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Success/Error Messages */
+.message {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+} 
