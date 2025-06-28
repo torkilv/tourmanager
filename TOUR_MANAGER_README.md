@@ -51,37 +51,25 @@ A web-based fantasy cycling game for you and your friends to compete during the 
 - Open `index.html` directly in your browser
 - Note: CSV loading may not work due to browser security restrictions
 
-## Firebase Multiplayer Setup (Recommended)
+## Automatic Multiplayer Database
 
-For the best multiplayer experience with real-time sync across all devices and players:
+**Tour Manager automatically connects to a shared Firebase database for real-time multiplayer!**
 
-1. **Create Firebase Project** (5 minutes):
-   - Go to [Firebase Console](https://console.firebase.google.com)
-   - Create new project: "tour-manager-2025"
-   - Enable Realtime Database in "test mode"
+### ✅ **What You Get:**
+- **Real-time sync** - See other players' changes instantly
+- **Cross-device access** - Same teams on phone, laptop, tablet
+- **Live leaderboard** - Rankings update automatically
+- **Never lose data** - Cloud backup included
 
-2. **Get Configuration**:
-   - Go to Project Settings → Web App
-   - Copy your `apiKey` and `databaseURL`
+### 📱 **How It Works:**
+1. **Start Tour Manager** - Firebase connects automatically
+2. **Check Status** - Settings tab shows "✅ Connected to shared database"
+3. **Play Together** - All players see the same data in real-time
 
-3. **Connect Tour Manager**:
-   - Open Tour Manager → Settings tab
-   - Paste Firebase credentials
-   - Click "Connect to Database"
-
-4. **🎉 Done!** All players now share the same database:
-   - ✅ **See changes instantly** when others update teams
-   - ✅ **Access from any device** - teams sync everywhere
-   - ✅ **Never lose data** - automatically backed up to cloud
-   - ✅ **Real multiplayer** - everyone sees the same leaderboard
-
-> **Detailed setup guide**: See `FIREBASE_SETUP.md` for step-by-step instructions
-
-### Local Storage Fallback
-If Firebase isn't set up, Tour Manager uses local browser storage:
-- Teams saved per browser only
-- No sync between devices/players
-- Export/import required for sharing
+### 🔧 **If Database Not Connected:**
+- **Fallback**: Local browser storage (teams saved per browser only)
+- **Status**: Settings shows "⚠️ Firebase not configured"
+- **Fix**: Contact administrator - Firebase credentials need updating
 
 ## Game Rules
 
@@ -151,27 +139,28 @@ The rider data is automatically loaded from the CSV files in the `TdF 2025 team 
 
 ## Data Management
 
-### Firebase Database (Recommended)
-When connected to Firebase:
-- **Real-time sync**: All teams automatically saved to shared cloud database
-- **Live updates**: See other players' changes instantly
-- **Cross-device access**: Same data on all browsers/devices
+### Automatic Cloud Sync 🌟
+**Tour Manager automatically saves all data to a shared Firebase database:**
+- **Real-time sync**: Teams saved instantly when you add/remove riders
+- **Live updates**: See other players' changes appear automatically
+- **Cross-device access**: Same data on phone, laptop, tablet, any browser
 - **Automatic backup**: Data safely stored in Google's cloud infrastructure
 
-### Local Storage (Fallback)
-When Firebase is not connected:
-- Teams saved to browser's local storage only
-- Data persists between browser sessions
-- Each manager's team stored separately per browser
+### Status Check
+- **Settings Tab**: Shows current database connection status
+- **Connected**: ✅ "Connected to shared database - live multiplayer active"
+- **Fallback**: ⚠️ "Firebase not configured - using local storage"
 
-### Export/Import
+### Export/Import (Backup)
 - **Export**: Download all team data as JSON file
 - **Import**: Upload previously exported data
-- Useful for backup or manual sharing between devices
+- Useful for manual backups or data migration
 
-### Reset
-- "Reset All Data" removes all teams and settings (local only if Firebase connected)
-- Use with caution - this action cannot be undone
+### Local Storage Fallback
+If Firebase connection fails:
+- Teams saved to browser's local storage only
+- Data persists between browser sessions
+- No sync between devices/players - each browser independent
 
 ## Troubleshooting
 
@@ -237,12 +226,13 @@ The point scheme is defined in the `pointScheme` object in `tourmanager.js` and 
 
 ## Version History
 
-- **v2.2** - Firebase multiplayer integration with real-time sync
-  - Added Firebase Realtime Database support for shared multiplayer experience
+- **v2.2** - Automatic Firebase multiplayer with real-time sync
+  - **Automatic connection** to shared Firebase database - no setup required
   - Real-time updates when other players modify teams
   - Cross-device sync - access teams from any browser/device
-  - Manager names now displayed properly throughout interface
-  - Automatic fallback to local storage when Firebase not connected
+  - Manager names (Lars, Ola, Anders, Torkil) displayed properly throughout
+  - Automatic fallback to local storage if Firebase unavailable
+  - Simplified user experience - just open and play together!
 - **v2.1** - GitHub Pages ready with team sharing and easy score updates
   - Renamed to index.html for GitHub Pages
   - Added URL-based team sharing
